@@ -45,19 +45,19 @@ intelec_ict = st.number_input("Intelec ICT (MW)", value=200.0)
 nsl = st.number_input("NSL Interconnector (MW)", value=300.0)
 vkl_ict = st.number_input("VKL ICT (MW)", value=150.0)
 
-# Prepare Input Data in Correct Order
+# Prepare Input Data
 input_data = np.array([[frequency, coal, nuclear, ccgt, wind, pumped, hydro, biomass, oil, solar, ocgt,
                          french_ict, dutch_ict, irish_ict, ew_ict, nemo, other, north_south, scotland_england,
                          ifa2, intelec_ict, nsl, vkl_ict]])
 
-# Normalize the input
 scaler = MinMaxScaler()
 input_data = scaler.fit_transform(input_data)
 
-# Debugging: Print Input Shape
-print("Updated Input Shape:", input_data.shape)
+#  Debugging: Print input shapes
+print("Expected Model Input Shape:", model.input_shape)  # Shape required by model
+print("Actual Input Shape:", input_data.shape)  # Shape being passed to model
 
-# Predict Button
+# Predict button
 if st.button("Predict Energy Demand"):
     prediction = model.predict(input_data)
     st.success(f"Predicted Energy Demand: {prediction[0][0]:.2f} MW")
