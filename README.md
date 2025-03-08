@@ -9,9 +9,9 @@ Source: gridwatch.csv
 - Features: 26 energy-related variables including frequency, coal, nuclear, ccgt, wind, pumped, hydro, and solar generation metrics.
 - Target Variable: demand (energy consumption in MW)
 - Preprocessing:
--- Removed unnecessary columns (id, timestamp).
--- Filled missing values using the median.
--- Applied Standardization (Z-score scaling) to normalize data.
+ - Removed unnecessary columns (id, timestamp).
+ - Filled missing values using the median.
+ - Applied Standardization (Z-score scaling) to normalize data.
   
 ## 3. Feature Reduction using PCA
 - To improve model efficiency, PCA was applied to retain 95% variance, reducing dimensionality from 26 to 17 components.
@@ -21,9 +21,9 @@ Source: gridwatch.csv
 ## 4. ANN Model Architecture
 - Input Layer: 17 neurons (PCA-transformed features).
 - Hidden Layers:
--- 128 neurons (ReLU activation).
--- 64 neurons (ReLU activation).
--- 32 neurons (ReLU activation).
+ - 128 neurons (ReLU activation).
+ - 64 neurons (ReLU activation).
+ - 32 neurons (ReLU activation).
 - Output Layer: 1 neuron (Linear activation for regression).
 - Optimizer: Adam
 - Loss Function: Mean Squared Error (MSE)
@@ -46,16 +46,16 @@ Source: gridwatch.csv
 
 ## 6. Model Deployment
 - Deployment Pipeline:
--- GitHub Repository: Version-controlled project with Jupyter/Colab integration.
--- Streamlit Web App: Interactive interface for real-time energy demand forecasting.
--- Model Export: ANN saved as energy_demand_model.h5.
--- PCA-transformed feature scaler stored as scaler.pkl for inference.
+ - GitHub Repository: Version-controlled project with Jupyter/Colab integration.
+ - Streamlit Web App: Interactive interface for real-time energy demand forecasting.
+ - Model Export: ANN saved as energy_demand_model.h5.
+ - PCA-transformed feature scaler stored as scaler.pkl for inference.
 
 ## 7. Hyperparameter Optimization
 - Learning rate tuning showed:
--- 0.001 → MAE: 363.59
--- 0.0005 → MAE: 342.21
--- 0.0001 → MAE: 296.42 (Best performing).
+ - 0.001 → MAE: 363.59
+ - 0.0005 → MAE: 342.21
+ - 0.0001 → MAE: 296.42 (Best performing).
 
 ## 8. Conclusion & Future Work
 - Key Takeaways:
