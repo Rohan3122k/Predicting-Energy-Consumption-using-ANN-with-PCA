@@ -10,11 +10,13 @@ Original file is located at
 import streamlit as st
 import tensorflow as tf
 import numpy as np
-import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
+import joblib  # Import joblib to load the scaler
 
 # Load the trained model
 model = tf.keras.models.load_model("energy_demand_model.h5", custom_objects={"mse": tf.keras.losses.MeanSquaredError()})
+
+# Load the saved MinMaxScaler
+scaler = joblib.load("scaler.pkl")  # Ensure this file is in the same directory as app.py
 
 # Streamlit UI
 st.title("🔋 Energy Demand Predictor")
@@ -39,19 +41,18 @@ ew_ict = st.number_input("EW ICT (MW)", value=150.0)
 nemo_link = st.number_input("Nemo Link (MW)", value=180.0)
 other_generation = st.number_input("Other (MW)", value=250.0)
 
+# Prepare Input Data in Correct Order and Reshape to 2D
+input_data = np.array([
+    frequency, coal_generation, nuclear_generation, ccgt_generation, wind_generation, 
+    pumped_storage, hydro_generation, biomass_generation, oil_generation, solar_generation, 
+    ocgt_generation, french_ict, dutch_ict, irish_ict, ew_ict, nemo_link, other_generation
+]).reshape(1, -1)
 
-# Prepare Input Data in Correct Order and reshape to 2D
-input_data = np.array([frequency, coal_generation, nuclear_generation, ccgt_generation, wind_generation, pumped_storage, hydro_generation, biomass_generation, oil_generation, solar_generation, ocgt_generation, french_ict, dutch_ict, irish_ict, ew_ict, nemo_link, other_generation]).reshape(1, -1)
-
-# Normalize the input
-scaler = MinMaxScaler()
-input_data = scaler.fit_transform(input_data)
-
-# Debugging: Print Input Shape
-print("Updated Input Shape:", input_data.shape)
+# Apply the Correct Scaling (DO NOT use fit_transform)
+input_data = scaler.transform(input_data)  # Correct method to scale input
 
 # Predict Button
 if st.button("Predict Energy Demand"):
     prediction = model.predict(input_data)
-    st.success(f"Predicted Energy Demand: {prediction[0][0]:.2f} MW")
+    st.success(f"🔮 Predicted Energy Demand: {prediction[0][0]:.2f} MW")
 
