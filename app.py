@@ -40,8 +40,8 @@ nemo_link = st.number_input("Nemo Link (MW)", value=180.0)
 other_generation = st.number_input("Other (MW)", value=250.0)
 
 
-# Prepare Input Data in Correct Order
-input_data = np.array([frequency, coal_generation, nuclear_generation, ccgt_generation, wind_generation, pumped_storage, hydro_generation, biomass_generation, oil_generation, solar_generation, ocgt_generation, french_ict, dutch_ict, irish_ict, ew_ict, nemo_link, other_generation])
+# Prepare Input Data in Correct Order and reshape to 2D
+input_data = np.array([frequency, coal_generation, nuclear_generation, ccgt_generation, wind_generation, pumped_storage, hydro_generation, biomass_generation, oil_generation, solar_generation, ocgt_generation, french_ict, dutch_ict, irish_ict, ew_ict, nemo_link, other_generation]).reshape(1, -1)
 
 # Normalize the input
 scaler = MinMaxScaler()
