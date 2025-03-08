@@ -38,6 +38,9 @@ input_data = np.array([[hour, day, month, weekday, coal, nuclear, ccgt, wind, so
 scaler = MinMaxScaler()
 input_data = scaler.fit_transform(input_data)
 
+# Debug: Print shape before prediction
+print("Input Data Shape:", input_data.shape)
+
 # Predict button
 if st.button("Predict Energy Demand"):
     prediction = model.predict(input_data)
