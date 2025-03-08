@@ -47,6 +47,9 @@ input_data = np.array([[frequency, coal_generation, nuclear_generation, ccgt_gen
                         pumped_storage, hydro_generation, biomass_generation, oil_generation, solar_generation,
                         ocgt_generation, french_ict, dutch_ict, irish_ict, ew_ict, nemo_link, other_generation]])
 
+# Check shape of input_data for debugging
+st.write(f"Shape of input_data: {input_data.shape}")
+
 # Scale the input data using the same scaler used during training
 input_data_scaled = scaler.transform(input_data)
 
