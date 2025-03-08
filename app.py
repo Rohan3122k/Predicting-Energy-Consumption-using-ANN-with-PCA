@@ -13,17 +13,15 @@ import numpy as np
 import joblib
 from sklearn.preprocessing import MinMaxScaler
 
-# Load the trained model
-model = tf.keras.models.load_model("energy_demand_model.h5", custom_objects={"mse": tf.keras.losses.MeanSquaredError()})
-
-# Load the scaler from the saved .pkl file
+# Load the trained model and scaler
+model = tf.keras.models.load_model("energy_demand_model.h5")
 scaler = joblib.load("scaler.pkl")
 
 # Streamlit UI
 st.title("Energy Demand Predictor")
 st.write("Enter values to predict future energy consumption.")
 
-# User Input for Features
+# User Input for Features (with proper labels from training)
 frequency = st.number_input("Frequency (Hz)", value=50.0)
 coal_generation = st.number_input("Coal Generation (MW)", value=1000.0)
 nuclear_generation = st.number_input("Nuclear Generation (MW)", value=5000.0)
@@ -40,20 +38,17 @@ dutch_ict = st.number_input("Dutch ICT (MW)", value=200.0)
 irish_ict = st.number_input("Irish ICT (MW)", value=100.0)
 ew_ict = st.number_input("EW ICT (MW)", value=150.0)
 nemo_link = st.number_input("Nemo Link (MW)", value=180.0)
-other_generation = st.number_input("Other (MW)", value=250.0)
+other_generation = st.number_input("Other Generation (MW)", value=250.0)
 
-# Prepare the input data (ensure all inputs are passed in the right format)
+# Prepare Input Data (matching the feature names and model input)
 input_data = np.array([[frequency, coal_generation, nuclear_generation, ccgt_generation, wind_generation,
                         pumped_storage, hydro_generation, biomass_generation, oil_generation, solar_generation,
                         ocgt_generation, french_ict, dutch_ict, irish_ict, ew_ict, nemo_link, other_generation]])
 
-# Check shape of input_data for debugging
-st.write(f"Shape of input_data: {input_data.shape}")
-
-# Scale the input data using the same scaler used during training
+# Scale the input data using the loaded scaler
 input_data_scaled = scaler.transform(input_data)
 
-# Predict button
+# Predict Energy Demand when button is pressed
 if st.button("Predict Energy Demand"):
     prediction = model.predict(input_data_scaled)
     st.success(f"Predicted Energy Demand: {prediction[0][0]:.2f} MW")
