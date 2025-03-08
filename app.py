@@ -17,31 +17,47 @@ from sklearn.preprocessing import MinMaxScaler
 model = tf.keras.models.load_model("energy_demand_model.h5", custom_objects={"mse": tf.keras.losses.MeanSquaredError()})
 
 # Streamlit UI
-st.title("Energy Demand Predictor")
+st.title(" Energy Demand Predictor")
 st.write("Enter values to predict future energy consumption.")
 
-# Input fields for user
-hour = st.number_input("Hour (0-23)", min_value=0, max_value=23, value=12)
-day = st.number_input("Day (1-31)", min_value=1, max_value=31, value=15)
-month = st.number_input("Month (1-12)", min_value=1, max_value=12, value=6)
-weekday = st.number_input("Weekday (0=Monday, 6=Sunday)", min_value=0, max_value=6, value=2)
+# User Input for Features
+frequency = st.number_input("Frequency (Hz)", value=50.0)
 coal = st.number_input("Coal Generation (MW)", value=1000.0)
 nuclear = st.number_input("Nuclear Generation (MW)", value=5000.0)
 ccgt = st.number_input("CCGT Generation (MW)", value=3000.0)
 wind = st.number_input("Wind Generation (MW)", value=2000.0)
+pumped = st.number_input("Pumped Storage (MW)", value=500.0)
+hydro = st.number_input("Hydro Generation (MW)", value=600.0)
+biomass = st.number_input("Biomass Generation (MW)", value=400.0)
+oil = st.number_input("Oil Generation (MW)", value=100.0)
 solar = st.number_input("Solar Generation (MW)", value=1500.0)
-hydro = st.number_input("Hydro Generation (MW)", value=500.0)
-biomass = st.number_input("Biomass Generation (MW)", value=300.0)
+ocgt = st.number_input("OCGT Generation (MW)", value=50.0)
+french_ict = st.number_input("French ICT (MW)", value=300.0)
+dutch_ict = st.number_input("Dutch ICT (MW)", value=200.0)
+irish_ict = st.number_input("Irish ICT (MW)", value=100.0)
+ew_ict = st.number_input("EW ICT (MW)", value=150.0)
+nemo = st.number_input("Nemo Link (MW)", value=180.0)
+other = st.number_input("Other (MW)", value=250.0)
+north_south = st.number_input("North-South Transfer (MW)", value=400.0)
+scotland_england = st.number_input("Scotland-England Transfer (MW)", value=350.0)
+ifa2 = st.number_input("IFA2 Interconnector (MW)", value=280.0)
+intelec_ict = st.number_input("Intelec ICT (MW)", value=200.0)
+nsl = st.number_input("NSL Interconnector (MW)", value=300.0)
+vkl_ict = st.number_input("VKL ICT (MW)", value=150.0)
 
-# Prepare input data
-input_data = np.array([[hour, day, month, weekday, coal, nuclear, ccgt, wind, solar, hydro, biomass]])
+# Prepare Input Data in Correct Order
+input_data = np.array([[frequency, coal, nuclear, ccgt, wind, pumped, hydro, biomass, oil, solar, ocgt,
+                         french_ict, dutch_ict, irish_ict, ew_ict, nemo, other, north_south, scotland_england,
+                         ifa2, intelec_ict, nsl, vkl_ict]])
+
+# Normalize the input
 scaler = MinMaxScaler()
 input_data = scaler.fit_transform(input_data)
 
-# Debug: Print shape before prediction
-print("Input Data Shape:", input_data.shape)
+# Debugging: Print Input Shape
+print("Updated Input Shape:", input_data.shape)
 
-# Predict button
+# Predict Button
 if st.button("Predict Energy Demand"):
     prediction = model.predict(input_data)
     st.success(f"Predicted Energy Demand: {prediction[0][0]:.2f} MW")
