@@ -5,7 +5,7 @@ Deployed via GitHub & Streamlit
 Energy consumption forecasting plays a crucial role in grid management, ensuring stability and efficient power distribution. This project leverages Artificial Neural Networks (ANNs) combined with Principal Component Analysis (PCA) to enhance predictive accuracy while reducing computational complexity.
 
 ## 2. Dataset Overview
-Source: gridwatch.csv
+Source: https://gridwatch.co.uk/
 - Features: 26 energy-related variables including frequency, coal, nuclear, ccgt, wind, pumped, hydro, and solar generation metrics.
 - Target Variable: demand (energy consumption in MW)
 - Preprocessing:
