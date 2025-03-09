@@ -58,7 +58,7 @@ Source: https://gridwatch.co.uk/
  - 0.0001 → MAE: 296.42 (Best performing).
 
 ## 8. Conclusion & Future Work
-- Key Takeaways:
- - ✔ ANN with PCA successfully predicts energy consumption with 98% accuracy.
- -✔ PCA enhances efficiency by reducing feature dimensionality without losing significant information.
- -✔ Deployment via GitHub & Streamlit ensures accessibility and scalability.
+### Key Takeaways:
+- ✔ ANN with PCA successfully predicts energy consumption with 98% accuracy.
+- ✔ PCA enhances efficiency by reducing feature dimensionality without losing significant information.
+- ✔ Deployment via GitHub & Streamlit ensures accessibility and scalability.
