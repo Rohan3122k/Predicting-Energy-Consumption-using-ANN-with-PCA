@@ -1,5 +1,5 @@
 # Predicting Energy Consumption using ANN with PCA
-Deployed via GitHub & Streamlit
+Deployed via GitHub & Streamlit : https://energy-demand-prediction.streamlit.app/
 
 ## 1. Introduction
 Energy consumption forecasting plays a crucial role in grid management, ensuring stability and efficient power distribution. This project leverages Artificial Neural Networks (ANNs) combined with Principal Component Analysis (PCA) to enhance predictive accuracy while reducing computational complexity.
